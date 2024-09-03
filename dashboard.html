@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="text" class="form-control" id="youMustWork">
+          <input type="text" class="form-control mt-3" id="yepMustWork">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="editeddBtn()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+    <div id="show"></div>
+
+      <script>
+        var plsNowWorkOut;
+        var youAreMine = JSON.parse(localStorage.getItem('Temi'))
+        plsNowWorkOut =youAreMine
+        function displayItems(){
+        show.innerHTML = ""
+        plsNowWorkOut.map((PlsworkForUs, index) =>{
+            show.innerHTML +=`<h4>${index+1}</h4>
+            <h6>${PlsworkForUs.itWellOo}</h6>
+            <h6>${PlsworkForUs.itWellWell}</h6>
+            <p>${new Date ().toLocaleTimeString()}</P>
+            <p>${new Date ().toLocaleDateString()}</P>
+            <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editBtn(${index})">Edit</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteBtn(${index})">Delete</button>
+            `
+        })
+     }
+
+     displayItems()
+
+     function deleteBtn(i){
+        var confirmation = confirm('are you sure you want to delete this')
+        if(confirmation=true){
+            plsNowWorkOut.splice(i-1, 1)
+            localStorage.getItem(localStorage.clear('Temi'))
+            displayItems()
+        }
+     }
+
+     function editBtn(i){
+        newIndexPls = i
+     }
+
+     function editeddBtn(){
+       if(youMustWork.value==''){
+        alert('why do that')
+       }else{
+        var PlsworkForUs={
+                // itWellOo: inputOne.value
+                itWellOo: document.getElementById('youMustWork').value,
+                itWellWell: document.getElementById('yepMustWork').value,
+            };
+        plsNowWorkOut.splice(newIndexPls, 1 , PlsworkForUs)
+        displayItems()
+       } 
+     }
+      </script>
+</body>
+</html>
